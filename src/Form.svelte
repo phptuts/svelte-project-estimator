@@ -5,10 +5,9 @@
   export let price = "";
 
   $: mode = id ? "edit" : "add";
-
+  $: canSubmit = price !== "" && name !== "";
   function submit() {
-    if (price === "" || name === "") {
-      alert("please fillout the form");
+    if (!canSubmit) {
       return;
     }
 
@@ -36,6 +35,9 @@
   button {
     margin-left: 20px;
   }
+  button:disabled {
+    cursor: not-allowed;
+  }
 </style>
 
 <form on:submit|preventDefault={submit}>
@@ -51,10 +53,13 @@
       bind:value={price}
       type="number"
       step="any"
+      min="0"
       placeholder="Price"
       id="priceField" />
 
-    <button class="float-right" type="submit">{mode}</button>
+    <button disabled={!canSubmit} class="float-right" type="submit">
+      {mode}
+    </button>
 
     {#if mode == 'edit'}
       <button on:click={cancel} class="float-right" type="button">
