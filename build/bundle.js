@@ -511,13 +511,13 @@ var app = (function () {
     		c() {
     			button = element("button");
     			button.textContent = "Cancel";
-    			attr(button, "class", "float-right svelte-ut8al6");
+    			attr(button, "class", "float-right svelte-1chx6tj");
     			attr(button, "type", "button");
     		},
     		m(target, anchor, remount) {
     			insert(target, button, anchor);
     			if (remount) dispose();
-    			dispose = listen(button, "click", /*cancel*/ ctx[4]);
+    			dispose = listen(button, "click", /*cancel*/ ctx[5]);
     		},
     		p: noop,
     		d(detaching) {
@@ -541,12 +541,13 @@ var app = (function () {
     	let t5;
     	let button;
     	let t6;
+    	let button_disabled_value;
     	let t7;
     	let dispose;
 
     	function input1_input_handler() {
     		input1_updating = true;
-    		/*input1_input_handler*/ ctx[7].call(input1);
+    		/*input1_input_handler*/ ctx[8].call(input1);
     	}
 
     	let if_block = /*mode*/ ctx[2] == "edit" && create_if_block(ctx);
@@ -576,9 +577,11 @@ var app = (function () {
     			attr(label1, "for", "priceField");
     			attr(input1, "type", "number");
     			attr(input1, "step", "any");
+    			attr(input1, "min", "0");
     			attr(input1, "placeholder", "Price");
     			attr(input1, "id", "priceField");
-    			attr(button, "class", "float-right svelte-ut8al6");
+    			button.disabled = button_disabled_value = !/*canSubmit*/ ctx[3];
+    			attr(button, "class", "float-right svelte-1chx6tj");
     			attr(button, "type", "submit");
     		},
     		m(target, anchor, remount) {
@@ -601,9 +604,9 @@ var app = (function () {
     			if (remount) run_all(dispose);
 
     			dispose = [
-    				listen(input0, "input", /*input0_input_handler*/ ctx[6]),
+    				listen(input0, "input", /*input0_input_handler*/ ctx[7]),
     				listen(input1, "input", input1_input_handler),
-    				listen(form, "submit", prevent_default(/*submit*/ ctx[3]))
+    				listen(form, "submit", prevent_default(/*submit*/ ctx[4]))
     			];
     		},
     		p(ctx, [dirty]) {
@@ -617,6 +620,10 @@ var app = (function () {
 
     			input1_updating = false;
     			if (dirty & /*mode*/ 4) set_data(t6, /*mode*/ ctx[2]);
+
+    			if (dirty & /*canSubmit*/ 8 && button_disabled_value !== (button_disabled_value = !/*canSubmit*/ ctx[3])) {
+    				button.disabled = button_disabled_value;
+    			}
 
     			if (/*mode*/ ctx[2] == "edit") {
     				if (if_block) {
@@ -647,8 +654,7 @@ var app = (function () {
     	let { price = "" } = $$props;
 
     	function submit() {
-    		if (price === "" || name === "") {
-    			alert("please fillout the form");
+    		if (!canSubmit) {
     			return;
     		}
 
@@ -662,13 +668,13 @@ var app = (function () {
 
     		$$invalidate(1, price = "");
     		$$invalidate(0, name = "");
-    		$$invalidate(5, id = undefined);
+    		$$invalidate(6, id = undefined);
     	}
 
     	function cancel() {
     		$$invalidate(1, price = "");
     		$$invalidate(0, name = "");
-    		$$invalidate(5, id = undefined);
+    		$$invalidate(6, id = undefined);
     	}
 
     	function input0_input_handler() {
@@ -682,16 +688,21 @@ var app = (function () {
     	}
 
     	$$self.$set = $$props => {
-    		if ("id" in $$props) $$invalidate(5, id = $$props.id);
+    		if ("id" in $$props) $$invalidate(6, id = $$props.id);
     		if ("name" in $$props) $$invalidate(0, name = $$props.name);
     		if ("price" in $$props) $$invalidate(1, price = $$props.price);
     	};
 
     	let mode;
+    	let canSubmit;
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*id*/ 32) {
+    		if ($$self.$$.dirty & /*id*/ 64) {
     			 $$invalidate(2, mode = id ? "edit" : "add");
+    		}
+
+    		if ($$self.$$.dirty & /*price, name*/ 3) {
+    			 $$invalidate(3, canSubmit = price !== "" && name !== "");
     		}
     	};
 
@@ -699,6 +710,7 @@ var app = (function () {
     		name,
     		price,
     		mode,
+    		canSubmit,
     		submit,
     		cancel,
     		id,
@@ -710,7 +722,7 @@ var app = (function () {
     class Form extends SvelteComponent {
     	constructor(options) {
     		super();
-    		init(this, options, instance, create_fragment, safe_not_equal, { id: 5, name: 0, price: 1 });
+    		init(this, options, instance, create_fragment, safe_not_equal, { id: 6, name: 0, price: 1 });
     	}
     }
 
