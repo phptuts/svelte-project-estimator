@@ -722,7 +722,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (47:4) {#each materials as material (material.id)}
+    // (50:4) {#each materials as material (material.id)}
     function create_each_block(key_1, ctx) {
     	let tr;
     	let td0;
@@ -751,7 +751,7 @@ var app = (function () {
     			td2 = element("td");
     			i = element("i");
     			attr(i, "class", "far fa-trash-alt");
-    			attr(tr, "class", "svelte-10ncm8u");
+    			attr(tr, "class", "svelte-lvt8tf");
     			this.first = tr;
     		},
     		m(target, anchor, remount) {
@@ -815,7 +815,7 @@ var app = (function () {
     			table = element("table");
     			thead = element("thead");
 
-    			thead.innerHTML = `<tr class="svelte-10ncm8u"><th>Material</th> 
+    			thead.innerHTML = `<tr class="svelte-lvt8tf"><th>Material</th> 
       <th>Price</th> 
       <th></th></tr>`;
 
@@ -834,8 +834,8 @@ var app = (function () {
     			td1 = element("td");
     			t8 = text(t8_value);
     			attr(td1, "colspan", "2");
-    			attr(tr1, "class", "svelte-10ncm8u");
-    			attr(table, "class", "primary");
+    			attr(tr1, "class", "svelte-lvt8tf");
+    			attr(table, "class", "primary svelte-lvt8tf");
     		},
     		m(target, anchor) {
     			insert(target, table, anchor);
@@ -969,7 +969,7 @@ var app = (function () {
     			create_component(form.$$.fragment);
     			t2 = space();
     			create_component(table.$$.fragment);
-    			attr(main, "class", "svelte-ottgul");
+    			attr(main, "class", "svelte-jpczxa");
     		},
     		m(target, anchor) {
     			insert(target, main, anchor);
