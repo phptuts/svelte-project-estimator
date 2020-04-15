@@ -27,6 +27,9 @@
 </script>
 
 <style>
+  table {
+    width: 100%;
+  }
   tr {
     cursor: pointer;
   }

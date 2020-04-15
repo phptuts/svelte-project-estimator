@@ -18,9 +18,6 @@
     width: 80%;
     margin: 0 auto;
   }
-  :global(table) {
-    width: 100%;
-  }
 </style>
 
 <main>
